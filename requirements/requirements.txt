@@ -1,0 +1,5 @@
+####### requirements.txt #######
+
+tabular-log
+requests
+programGUI>=1.4
