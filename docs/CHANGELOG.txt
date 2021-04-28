@@ -1,0 +1,12 @@
+# Changelog
+Gestore di processi e thread in Windows
+
+## [01.01] - 2021-4-28
+### Added
+- Something
+
+### Changed
+- Something
+
+### Removed
+- Something
