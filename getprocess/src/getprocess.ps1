@@ -22,12 +22,78 @@
 param (
     [String]$flussiFolder = "..\\flussi"
     ,[String]$logFile = "..\\..\\log\\trace.log"
+    ,[String]$harperLink = ""
+    ,[String]$harperToken = ""
+    ,[String]$harperTable = "getprocess"
+    ,[Parameter(Mandatory=$false)] [ValidateSet($false,$true)][Bool]$harper = $false
     ,[Parameter(Mandatory=$false)] [ValidateSet($false,$true)][Bool]$GUI = $true
     ,[Parameter(Mandatory=$false)] [ValidateSet($false,$true)][Bool]$booldebug = $false
 )
 
 $programName = "getprocess.ps1"
 $ECode = (New-TimeSpan -Start (Get-Date "01/01/1970") -End (Get-Date)).TotalSeconds
+$global:line = 1
+
+Function fnInitDB{
+    # Create dev
+    Invoke-WebRequest -Headers @{"Content-Type" = "application/json"; "Authorization" = "Basic $harperToken"} `
+                  -Method POST `
+                  -Body (@{"operation" = "create_schema"; "schema" = "dev"}|ConvertTo-Json) `
+                  -Uri $harperLink `
+                  -ContentType application/json
+
+    # Create table
+    Invoke-WebRequest -Headers @{"Content-Type" = "application/json"; "Authorization" = "Basic $harperToken"} `
+                  -Method POST `
+                  -Body (@{"operation" = "create_table"; "schema" = "dev"; "table" =  $harperTable; "hash_attribute" = "id"}|ConvertTo-Json) `
+                  -Uri $harperLink `
+                  -ContentType application/json
+
+    # Add params
+    foreach ($attribute in "PCName", "Handles", "processName", "processID", "processCPU", "processHandless", "ThreadState", "MessageTime", "MessageTimeForUsers") {
+        Invoke-WebRequest -Headers @{"Content-Type" = "application/json"; "Authorization" = "Basic $harperToken"} `
+                  -Method POST `
+                  -Body (@{"operation" = "create_attribute"; "schema" = "dev"; "table" = $harperTable; "attribute" = $attribute}|ConvertTo-Json) `
+                  -Uri $harperLink `
+                  -ContentType application/json
+    }
+}
+
+Function fnDB{
+    param(
+        # PCName,Handles,processName,processID,processCPU,processHandless,ThreadState,MessageTime,MessageTimeForUsers
+        [String]$PCName = $env:computername,
+        [String]$Handles = "",
+        [String]$processName = "",
+        [String]$processID = "",
+        [String]$processCPU = "",
+        [String]$processHandless = "",
+        [String]$ThreadState = "",
+        [String]$MessageTime = (New-TimeSpan -Start (Get-Date "01/01/1970") -End (Get-Date)).TotalSeconds,
+        [String]$MessageTimeForUsers = (Get-Date).ToString("dd/MM/yyyy HH:mm:ss")
+    )
+
+    $record = @{
+        "PCName" = $PCName;
+        "Handles" = $Handles;
+        "processName" = $processName;
+        "processID" = $processID;
+        "processCPU" = $processCPU;
+        "processHandless" = $processHandless;
+        "ThreadState" = $ThreadState;
+        "MessageTime" = $MessageTime;
+        "MessageTimeForUsers" = $MessageTimeForUsers
+    }
+
+    $Response = Invoke-WebRequest -Headers @{"Content-Type" = "application/json"; "Authorization" = "Basic $harperToken"} `
+                -Method POST `
+                -Body (@{"operation" = "insert"; "schema" = "dev"; "table" = $harperTable; "records" = @($record)}|ConvertTo-Json) `
+                -Uri $harperLink `
+
+    if($booldebug) {
+        fnLog -msg $Response.Content
+    }
+}
 
 Function fnInitFiles{
     if (!(Test-Path $logFile))
@@ -79,12 +145,14 @@ Function fnWrite{
     param(
         [String]$msg = ""
     )
+    $global:line++
 
     if ($GUI){
         $var_console.Content += $msg + "`n"
+        $var_console.Height = $global:line * 16
     }
     else{
-        fnWrite -msg $msg
+        Write-Output -msg $msg
     }
     
     fnLog -msg $msg
@@ -129,6 +197,10 @@ Function fnListProcess {
 
         # Save to CSV the infos
         fnCSV -Handles $handle -processName $processname -processID $processID -processCPU $processCPU -processHandless $processHandless -ThreadState $threadState
+        
+        if ($harper) {
+            fnDB -Handles $handle -processName $processname -processID $processID -processCPU $processCPU -processHandless $processHandless -ThreadState $threadState
+        }
     }
 }
 
@@ -136,23 +208,18 @@ Function main()
 {
     Clear-Host
 
-    $ver = $Host.Version
-    fnWrite -msg "Script root $PSScriptRoot  -- log folder $logFile "
-
-    if ($booldebug) {
-        fnWrite -msg "Start $programName - powershell version $ver "
+    if ($harper) {
+        fnInitDB
     }
+    
+    fnWrite -msg "Start $programname - powershell version $ver"
+
+    $ver = $Host.Version
     
     fnWrite -msg "${Get-Date}"
 
     fnInitFiles
-    if ($true) {
-        fnListProcess
-    }
-    
-    if ($booldebug) {
-        fnWrite -msg "Stop $programname endinG $Get-Date"
-    }
+    fnListProcess
 
     if ($GUI) {
         Clear-Host
@@ -188,11 +255,17 @@ if ($GUI){
             throw
        }
     }
-
     $var_startBtn.Add_Click({
+        # Set variabiles
         $booldebug = $var_verbose.IsChecked;
         $flussiFolder = $var_flussi.Text;
         $logFile = $var_log.Text;
+        $harper = $var_harper.IsChecked;
+        $harperLink = $var_harperLink.Text;
+        $harperToken = $var_harperToken.Password;
+        $harperTable = $var_harperTable.Text;
+
+        # Start main
         main;
     })
 

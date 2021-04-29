@@ -5,11 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp1"
         mc:Ignorable="d"
-        Title="getprocess - Castellani Davide" Height="500" Width="800">
+        Title="getprocess - Castellani Davide" Height="550" Width="1100" ResizeMode="NoResize">
     <Grid Margin="0,0,0,0">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="300" />
-            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="300" />
+            <ColumnDefinition Width="500" />
         </Grid.ColumnDefinitions>
         <!-- Column 0 -->
         <Label Content="Do you want to start it into verbose mode?" HorizontalAlignment="Left" Margin="50,50,0,0" VerticalAlignment="Top" Grid.Column="0"/>
@@ -20,12 +21,26 @@
         <TextBox Name="flussi" HorizontalAlignment="Left" Margin="75,210,0,0" Text="../../flussi/" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Grid.Column="0"/>
         <Label Content="Ready?" HorizontalAlignment="Left" Margin="50,240,0,0" Grid.Column="0"/>
         <Button Name="startBtn" Content="Start" HorizontalAlignment="Left" Margin="75,270,0,0" VerticalAlignment="Top" Grid.Column="0"/>
+        <Image HorizontalAlignment="Left" Height="150" Margin="75,300,0,0" VerticalAlignment="Top" Width="150" Source="https://www.castellanidavide.it/assets/img/loghi/Loghi_2.png?h=63237c5011e4705ddb543a4112c1c6ba" Grid.Column="0"/>
+        <Label Content="By Castellani Davide" HorizontalAlignment="Left" Margin="50,450,0,0" Grid.Column="0"/>
 
-        <!-- Column 1 -->
-        <ScrollViewer HorizontalScrollBarVisibility="Auto" Grid.Column="1">
+        <!-- Column 2 -->
+        <Label Content="Do you want to use HarperDB?" HorizontalAlignment="Left" Margin="50,50,0,0" VerticalAlignment="Top" Grid.Column="1"/>
+        <CheckBox Name="harper" Content="enable DB" HorizontalAlignment="Left" Margin="75,80,0,0" Grid.Column="1"/>
+        <Label Content="Please, insert the HarperDB link" HorizontalAlignment="Left" Margin="54,110,0,0" Grid.Column="1"/>
+        <TextBox Name="harperLink" HorizontalAlignment="Left" Margin="75,140,0,0" Text="https://___.harperdbcloud.com" TextWrapping="Wrap" VerticalAlignment="Top" Width="212" Grid.Column="1"/>
+        <Label Content="Please, insert the HarperDB token" HorizontalAlignment="Left" Margin="54,170,0,0" Grid.Column="1"/>
+        <PasswordBox Name="harperToken" HorizontalAlignment="Left" Margin="75,210,0,0" VerticalAlignment="Top" Width="120" Grid.Column="1"/>
+        <Label Content="Please, insert the HarperDB table" HorizontalAlignment="Left" Margin="54,240,0,0" Grid.Column="1"/>
+        <TextBox Name="harperTable" HorizontalAlignment="Left" Margin="75,270,0,0" Text="getprocess" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Grid.Column="1"/>
+        <Image HorizontalAlignment="Left" Height="150" Margin="75,300,0,0" VerticalAlignment="Top" Width="150" Source="https://res-4.cloudinary.com/crunchbase-production/image/upload/c_lpad,f_auto,q_auto:eco/qk7kyt3uxhu4rdhi5pd9" Grid.Column="1"/>
+        <Label Content="Avariable only for HarperDB" HorizontalAlignment="Left" Margin="50,450,0,0" Grid.Column="1"/>
+        
+        <!-- Column 2 -->
+        <ScrollViewer HorizontalScrollBarVisibility="Auto" Grid.Column="2">
             <StackPanel VerticalAlignment="Top" HorizontalAlignment="Left">
                 <Label Content="Console:" Margin="0,0,0,20" />
-                <Label Name="console" Content="" Width="480" Height="100000" Background="DarkBlue" Foreground="White"/>
+                <Label Name="console" Content="" Width="480" Height="400" Background="DarkBlue" Foreground="White"/>
             </StackPanel>
         </ScrollViewer>
     </Grid>

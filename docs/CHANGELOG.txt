@@ -1,6 +1,13 @@
 ﻿# Changelog
 Gestore di processi e thread in Windows
 
+## [01.02] - 2021-04-29
+### Added
+- DB usage
+### Changed
+- Upgraded console label
+- Now has a better user-interface
+
 ## [01.01] - 2021-04-29
 ### Added
-- Initaial version
+- Initial version
