@@ -22,8 +22,8 @@
 param (
     [String]$flussiFolder = "..\\flussi"
     ,[String]$logFile = "..\\..\\log\\trace.log"
-    ,[Parameter(Mandatory=$false)] [ValidateSet($false,$true)][Bool]$GUI = $true,
-    [Parameter(Mandatory=$false)] [ValidateSet($false,$true)][Bool]$booldebug = $true
+    ,[Parameter(Mandatory=$false)] [ValidateSet($false,$true)][Bool]$GUI = $true
+    ,[Parameter(Mandatory=$false)] [ValidateSet($false,$true)][Bool]$booldebug = $false
 )
 
 $programName = "getprocess.ps1"
