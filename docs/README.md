@@ -17,7 +17,7 @@ You can run this code in two modalities:
    - ```-booldebug``` : Enable/ Disable verbose
 
 An example of GUI:
-![Example GUI](https://github.com/CastellaniDavide/getprocess/blob/v01.03/docs/example.png?raw=true)
+![Example GUI](https://raw.githubusercontent.com/CastellaniDavide/getprocess/v01.03/docs/example.png)
 
 ## Required
 ![](http://jeffnielsen.com/wp-content/uploads/2014/06/required-cropped.png)
