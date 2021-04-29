@@ -1,6 +1,11 @@
 ﻿# Changelog
 Gestore di processi e thread in Windows
 
+## [01.03] - 2021-04-29
+### Changed
+- Optimized README.md
+- Now has a better user-interface
+
 ## [01.02] - 2021-04-29
 ### Added
 - DB usage

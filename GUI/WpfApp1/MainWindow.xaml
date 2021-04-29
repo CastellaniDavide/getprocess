@@ -12,6 +12,7 @@
             <ColumnDefinition Width="300" />
             <ColumnDefinition Width="500" />
         </Grid.ColumnDefinitions>
+      
         <!-- Column 0 -->
         <Label Content="Do you want to start it into verbose mode?" HorizontalAlignment="Left" Margin="50,50,0,0" VerticalAlignment="Top" Grid.Column="0"/>
         <CheckBox Name="verbose" Content="verbose" HorizontalAlignment="Left" Margin="75,80,0,0" Grid.Column="0"/>
@@ -21,7 +22,7 @@
         <TextBox Name="flussi" HorizontalAlignment="Left" Margin="75,210,0,0" Text="../../flussi/" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Grid.Column="0"/>
         <Label Content="Ready?" HorizontalAlignment="Left" Margin="50,240,0,0" Grid.Column="0"/>
         <Button Name="startBtn" Content="Start" HorizontalAlignment="Left" Margin="75,270,0,0" VerticalAlignment="Top" Grid.Column="0"/>
-        <Image HorizontalAlignment="Left" Height="150" Margin="75,300,0,0" VerticalAlignment="Top" Width="150" Source="https://www.castellanidavide.it/assets/img/loghi/Loghi_2.png?h=63237c5011e4705ddb543a4112c1c6ba" Grid.Column="0"/>
+        <Image HorizontalAlignment="Left" Height="150" Margin="75,300,0,0" VerticalAlignment="Top" Width="150" Source="https://www.castellanidavide.it/assets/img/loghi/Loghi_2.png" Grid.Column="0"/>
         <Label Content="By Castellani Davide" HorizontalAlignment="Left" Margin="50,450,0,0" Grid.Column="0"/>
 
         <!-- Column 2 -->
