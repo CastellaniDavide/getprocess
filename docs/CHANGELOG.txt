@@ -1,6 +1,10 @@
 ﻿# Changelog
 Gestore di processi e thread in Windows
 
+## [01.04] - 2021-04-29
+### Added
+- The ability to choose which thread to analyze
+
 ## [01.03] - 2021-04-29
 ### Changed
 - Optimized README.md

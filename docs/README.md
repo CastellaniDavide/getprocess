@@ -1,5 +1,5 @@
 ﻿# getprocess
-[![GitHub license](https://img.shields.io/badge/license-Apache%202.0%20License-green?style=flat)](https://github.com/CastellaniDavide/cpp-getprocess/blob/master/LICENSE) ![Author](https://img.shields.io/badge/author-Castellani%20Davide-green?style=flat) ![Version](https://img.shields.io/badge/version-v01.03-blue?style=flat) ![Language Python](https://img.shields.io/badge/language-Python-yellowgreen?style=flat) ![sys.platform supported](https://img.shields.io/badge/OS%20platform%20supported-All-blue?style=flat) [![On GitHub](https://img.shields.io/badge/on%20GitHub-True-green?style=flat&logo=github)](https://github.com/CastellaniDavide/getprocess) 
+[![GitHub license](https://img.shields.io/badge/license-Apache%202.0%20License-green?style=flat)](https://github.com/CastellaniDavide/cpp-getprocess/blob/master/LICENSE) ![Author](https://img.shields.io/badge/author-Castellani%20Davide-green?style=flat) ![Version](https://img.shields.io/badge/version-v01.04-blue?style=flat) ![Language Python](https://img.shields.io/badge/language-Python-yellowgreen?style=flat) ![sys.platform supported](https://img.shields.io/badge/OS%20platform%20supported-All-blue?style=flat) [![On GitHub](https://img.shields.io/badge/on%20GitHub-True-green?style=flat&logo=github)](https://github.com/CastellaniDavide/getprocess) 
 
 ## Description
 This code is made to make easier for you take some info about every thread on your PC.
@@ -9,6 +9,7 @@ You can run this code in two modalities:
  - CLI mode: this is the pro mode, I suggest this if you want to use this into a PIPE of programs, or other advanced uses
    - ```-flussiFolder``` : Set the csv file(s) 
    - ```-logFile``` : Set the log position
+   - ```-thread``` : Choose which thread to analyze
    - ```-harperLink``` :  Set the HarperDB link
    - ```-harperToken``` : Set the HarperDB Token
    - ```-harperTable``` : Set the HarperDB Table

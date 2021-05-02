@@ -8,20 +8,18 @@
 .NOTES  
     File Name  : get_process.ps1  
     Author     : Castellai Davide - @DavideC03
+    version    : v01.04
     Requires   : PowerShell V5, .NET v5
 
     https://docs.microsoft.com/en-us/windows/win32/cimwin32prov/win32-process
     https://docs.microsoft.com/en-us/windows/win32/cimwin32prov/win32-thread
-	
-  Changelog:
-        01.01     Initial Release
-  LINK:
 
 #>
 
 param (
     [String]$flussiFolder = "..\\flussi"
     ,[String]$logFile = "..\\..\\log\\trace.log"
+    ,[String]$thread = ""
     ,[String]$harperLink = ""
     ,[String]$harperToken = ""
     ,[String]$harperTable = "getprocess"
@@ -162,7 +160,11 @@ Function fnListProcess {
 
 	if ($booldebug -eq $true) { fnWrite -msg "Esecuzione fnListProcess"}
        
-    $processes = Get-Process 
+    if ([string]::IsNullOrEmpty($thread)){
+        $processes = Get-Process
+    } else {
+        $processes = Get-Process -Name $thread
+    }
 
     foreach ($process in $processes) {
         # Handles,processName,processID,processCPU,processHandless,ThreadState
@@ -204,7 +206,7 @@ Function fnListProcess {
     }
 }
 
-Function main()
+Function fnMain()
 {
     Clear-Host
 
@@ -255,18 +257,20 @@ if ($GUI){
             throw
        }
     }
+
     $var_startBtn.Add_Click({
         # Set variabiles
         $booldebug = $var_verbose.IsChecked;
         $flussiFolder = $var_flussi.Text;
         $logFile = $var_log.Text;
+        $thread = $var_thread.Text;
         $harper = $var_harper.IsChecked;
         $harperLink = $var_harperLink.Text;
         $harperToken = $var_harperToken.Password;
         $harperTable = $var_harperTable.Text;
 
         # Start main
-        main;
+        fnMain
     })
 
     $Null = $window.ShowDialog();
@@ -274,5 +278,6 @@ if ($GUI){
 
 if (-Not $GUI)
 {
-    main;
+    fnMain;
 }
+
